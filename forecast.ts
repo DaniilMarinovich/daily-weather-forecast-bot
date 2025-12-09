@@ -1,14 +1,11 @@
-function checkToday(day: Date): boolean {
-  const today = new Date();
-  return (
-    today.getDate() === day.getDate() || today.getDate() + 1 === day.getDate()
-  );
+function compareDates(day: Date, checkDay: Date): boolean {
+  return checkDay.getDate() === day.getDate();
 }
 
-function filterTodayForecast(data: any) {
+function filterForecast(data: any, checkDay: Date) {
   return data.list.filter((forecast: any) => {
     const day = new Date(forecast.dt_txt);
-    return checkToday(day);
+    return compareDates(day, checkDay);
   });
 }
 
@@ -31,7 +28,10 @@ export function getForecast(data: any): string {
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
   return (
-    `Прогноз погоды в Гомеле на сегодня(${today.getDate()}.${today.getMonth()}}) и завтра(${tomorrow.getDate()}.${tomorrow.getMonth()}}):\n` +
-    formatForecast(filterTodayForecast(data))
+    `Прогноз погоды в Гомеле на сегодня(${today.getDate()}.${today.getMonth()}):\n` +
+    formatForecast(filterForecast(data, today)) +
+    "\n" +
+    `Прогноз погоды в Гомеле назавтра(${tomorrow.getDate()}.${tomorrow.getMonth()}):\n` +
+    formatForecast(filterForecast(data, tomorrow))
   );
 }
