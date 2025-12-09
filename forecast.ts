@@ -25,8 +25,9 @@ function formatForecast(todayForecasts: any): string {
 }
 
 export function getForecast(data: any): string {
+  const today = new Date();
   return (
-    "Прогноз погоды в Гомеле на сегодня:\n" +
+    `Прогноз погоды в Гомеле на сегодня(${today.getDate()}.${today.getMonth()}):\n` +
     formatForecast(filterTodayForecast(data))
   );
 }
