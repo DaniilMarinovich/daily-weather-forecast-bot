@@ -1,6 +1,8 @@
 function checkToday(day: Date): boolean {
   const today = new Date();
-  return today.getDate() === day.getDate() || today.getDate() + 1 === day.getDate();
+  return (
+    today.getDate() === day.getDate() || today.getDate() + 1 === day.getDate()
+  );
 }
 
 function filterTodayForecast(data: any) {
